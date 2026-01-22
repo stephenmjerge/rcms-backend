@@ -7,19 +7,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.stefanos.rcms.audit.AuditLogService;
 import com.stefanos.rcms.cases.dto.CaseCreateRequest;
 import com.stefanos.rcms.cases.dto.CaseResponse;
 import com.stefanos.rcms.cases.dto.CaseUpdateRequest;
+
 
 @Service
 @Transactional
 public class CaseRecordService {
 
     private final CaseRecordRepository repository;
+    private final AuditLogService auditLogService;
 
-    public CaseRecordService(CaseRecordRepository repository) {
+    public CaseRecordService(CaseRecordRepository repository, AuditLogService auditLogService) {
         this.repository = repository;
+        this.auditLogService = auditLogService;
     }
+
 
     public CaseResponse create(CaseCreateRequest request) {
         if (repository.existsByExternalReference(request.getExternalReference())) {
@@ -33,14 +38,18 @@ public class CaseRecordService {
         record.setStatus(request.getStatus());
 
         CaseRecord saved = repository.save(record);
+        auditLogService.record("CREATE", "CaseRecord", saved.getId().toString(),
+            "externalReference=" + saved.getExternalReference());
         return toResponse(saved);
+
     }
 
-    @Transactional(readOnly = true)
     public CaseResponse getById(Long id) {
         CaseRecord record = repository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found"));
+        auditLogService.record("VIEW", "CaseRecord", record.getId().toString(), null);
         return toResponse(record);
+
     }
 
     @Transactional(readOnly = true)
@@ -59,6 +68,7 @@ public class CaseRecordService {
         record.setStatus(request.getStatus());
 
         CaseRecord saved = repository.save(record);
+        auditLogService.record("UPDATE", "CaseRecord", saved.getId().toString(), null);
         return toResponse(saved);
     }
 
