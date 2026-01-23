@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/cases").hasAnyRole("ADMIN", "CASE_WORKER")
                 .requestMatchers(HttpMethod.PUT, "/cases/**").hasAnyRole("ADMIN", "CASE_WORKER")
                 .requestMatchers(HttpMethod.DELETE, "/cases/**").hasAnyRole("ADMIN", "CASE_WORKER")
+                .requestMatchers(HttpMethod.GET, "/audit/**").hasAnyRole("ADMIN", "AUDITOR")
                 .anyRequest().authenticated()
             )
             .oauth2ResourceServer(oauth2 -> oauth2
