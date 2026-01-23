@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import com.stefanos.rcms.audit.AuditLogService;
 import com.stefanos.rcms.cases.dto.CaseCreateRequest;
@@ -53,8 +54,12 @@ public class CaseRecordService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CaseResponse> listAll(Pageable pageable) {
-        return repository.findAll(pageable)
+    public Page<CaseResponse> listAll(CaseStatus status, String externalReference, Pageable pageable) {
+        Specification<CaseRecord> spec = Specification
+            .where(CaseSpecifications.hasStatus(status))
+            .and(CaseSpecifications.hasExternalReference(externalReference));
+
+        return repository.findAll(spec, pageable)
             .map(this::toResponse);
     }
 
