@@ -16,6 +16,23 @@ services:
       interval: 5s
       timeout: 3s
       retries: 10
+  app:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: rcms-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/rcms
+      SPRING_DATASOURCE_USERNAME: rcms
+      SPRING_DATASOURCE_PASSWORD: rcms_dev_password
+      RCMS_JWT_SECRET: tvB1YmTiuhWLZFzU75HVMeQRGwXqbDEyjsNJOkro9IdK4San
+      RCMS_JWT_ISSUER: rcms
+      RCMS_JWT_TTL_SECONDS: 3600
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   rcms_pgdata:
