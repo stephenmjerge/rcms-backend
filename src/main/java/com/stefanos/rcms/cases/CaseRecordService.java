@@ -1,11 +1,11 @@
 package com.stefanos.rcms.cases;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.stefanos.rcms.audit.AuditLogService;
 import com.stefanos.rcms.cases.dto.CaseCreateRequest;
@@ -53,10 +53,9 @@ public class CaseRecordService {
     }
 
     @Transactional(readOnly = true)
-    public List<CaseResponse> listAll() {
-        return repository.findAll().stream()
-            .map(this::toResponse)
-            .toList();
+    public Page<CaseResponse> listAll(Pageable pageable) {
+        return repository.findAll(pageable)
+            .map(this::toResponse);
     }
 
     public CaseResponse update(Long id, CaseUpdateRequest request) {
