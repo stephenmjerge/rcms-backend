@@ -17,6 +17,9 @@ public class CaseUpdateRequest {
     @NotNull
     private CaseStatus status;
 
+    @Size(max = 128)
+    private String assignedTo;
+
     public String getTitle() {
         return title;
     }
@@ -39,5 +42,13 @@ public class CaseUpdateRequest {
 
     public void setStatus(CaseStatus status) {
         this.status = status;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }

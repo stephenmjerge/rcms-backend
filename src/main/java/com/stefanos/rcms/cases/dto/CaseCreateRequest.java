@@ -21,6 +21,9 @@ public class CaseCreateRequest {
     @NotNull
     private CaseStatus status;
 
+    @Size(max = 128)
+    private String assignedTo;
+
     public String getExternalReference() {
         return externalReference;
     }
@@ -51,5 +54,13 @@ public class CaseCreateRequest {
 
     public void setStatus(CaseStatus status) {
         this.status = status;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 }

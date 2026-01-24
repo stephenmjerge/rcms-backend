@@ -37,6 +37,7 @@ public class CaseRecordService {
         record.setTitle(request.getTitle());
         record.setDescription(request.getDescription());
         record.setStatus(request.getStatus());
+        record.setAssignedTo(request.getAssignedTo());
 
         CaseRecord saved = repository.save(record);
         auditLogService.record("CREATE", "CaseRecord", saved.getId().toString(),
@@ -70,6 +71,7 @@ public class CaseRecordService {
         record.setTitle(request.getTitle());
         record.setDescription(request.getDescription());
         record.setStatus(request.getStatus());
+        record.setAssignedTo(request.getAssignedTo());
 
         CaseRecord saved = repository.save(record);
         auditLogService.record("UPDATE", "CaseRecord", saved.getId().toString(), null);
@@ -89,6 +91,7 @@ public class CaseRecordService {
         response.setExternalReference(record.getExternalReference());
         response.setTitle(record.getTitle());
         response.setDescription(record.getDescription());
+        response.setAssignedTo(record.getAssignedTo());
         response.setStatus(record.getStatus());
         response.setCreatedAt(record.getCreatedAt());
         response.setUpdatedAt(record.getUpdatedAt());
