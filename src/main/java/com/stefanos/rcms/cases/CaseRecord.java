@@ -34,6 +34,9 @@ public class CaseRecord {
     @Column(nullable = false, length = 32)
     private CaseStatus status;
 
+    @Column(name = "assigned_to", length = 128)
+    private String assignedTo;
+
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
@@ -86,6 +89,14 @@ public class CaseRecord {
 
     public void setStatus(CaseStatus status) {
         this.status = status;
+    }
+
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
     }
 
     public OffsetDateTime getCreatedAt() {

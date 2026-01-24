@@ -10,9 +10,11 @@ public class CaseResponse {
     private String externalReference;
     private String title;
     private String description;
+    private String assignedTo;
     private CaseStatus status;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
+
 
     public Long getId() {
         return id;
@@ -46,6 +48,14 @@ public class CaseResponse {
         this.description = description;
     }
 
+    public String getAssignedTo() {
+        return assignedTo;
+    }
+
+    public void setAssignedTo(String assignedTo) {
+        this.assignedTo = assignedTo;
+    }
+
     public CaseStatus getStatus() {
         return status;
     }
@@ -69,4 +79,5 @@ public class CaseResponse {
     public void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }
