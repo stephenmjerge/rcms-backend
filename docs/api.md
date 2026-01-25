@@ -66,6 +66,12 @@ Response:
 **GET** `/cases`  
 List all cases (ADMIN, CASE_WORKER, AUDITOR).
 
+Optional query params:
+`status`, `externalReference`, `assignedTo`, `page`, `size`, `sort`
+
+Example:
+`/cases?assignedTo=caseworker-1&status=OPEN&page=0&size=10&sort=createdAt,desc`
+
 **GET** `/cases/{id}`  
 Fetch a case by id (ADMIN, CASE_WORKER, AUDITOR).
 

@@ -41,8 +41,8 @@ public class CaseRecordController {
     }
 
     @GetMapping
-    public Page<CaseResponse> listAll(CaseStatus status, String externalReference, Pageable pageable) {
-        return service.listAll(status, externalReference, pageable);
+    public Page<CaseResponse> listAll(CaseStatus status, String externalReference, String assignedTo, Pageable pageable) {
+        return service.listAll(status, externalReference, assignedTo, pageable);
     }
 
     @PutMapping("/{id}")

@@ -55,10 +55,11 @@ public class CaseRecordService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CaseResponse> listAll(CaseStatus status, String externalReference, Pageable pageable) {
+    public Page<CaseResponse> listAll(CaseStatus status, String externalReference, String assignedTo, Pageable pageable) {
         Specification<CaseRecord> spec = Specification
             .where(CaseSpecifications.hasStatus(status))
-            .and(CaseSpecifications.hasExternalReference(externalReference));
+            .and(CaseSpecifications.hasExternalReference(externalReference))
+            .and(CaseSpecifications.hasAssignedTo(assignedTo));
 
         return repository.findAll(spec, pageable)
             .map(this::toResponse);

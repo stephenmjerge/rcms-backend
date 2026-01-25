@@ -15,4 +15,10 @@ public final class CaseSpecifications {
             ? cb.conjunction()
             : cb.equal(root.get("externalReference"), externalReference);
     }
+
+    public static Specification<CaseRecord> hasAssignedTo(String assignedTo) {
+        return (root, query, cb) -> (assignedTo == null || assignedTo.isBlank())
+            ? cb.conjunction()
+            : cb.equal(root.get("assignedTo"), assignedTo);
+    }
 }
