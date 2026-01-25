@@ -44,7 +44,8 @@ Request:
   "externalReference": "CASE-1001",
   "title": "Initial intake",
   "description": "First case",
-  "status": "OPEN"
+  "status": "OPEN",
+  "assignedTo": "caseworker-1"
 }
 ```
 
@@ -55,6 +56,7 @@ Response:
   "externalReference": "CASE-1001",
   "title": "Initial intake",
   "description": "First case",
+  "assignedTo": "caseworker-1",
   "status": "OPEN",
   "createdAt": "2026-01-21T20:46:47.4698322-05:00",
   "updatedAt": "2026-01-21T20:46:47.4698322-05:00"
@@ -75,7 +77,8 @@ Request:
 {
   "title": "Updated title",
   "description": "Updated",
-  "status": "IN_PROGRESS"
+  "status": "IN_PROGRESS",
+  "assignedTo": "caseworker-2"
 }
 ```
 
