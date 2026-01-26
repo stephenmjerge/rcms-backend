@@ -8,10 +8,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.List;
+
 import com.stefanos.rcms.audit.AuditLogService;
 import com.stefanos.rcms.cases.dto.CaseCreateRequest;
 import com.stefanos.rcms.cases.dto.CaseResponse;
 import com.stefanos.rcms.cases.dto.CaseUpdateRequest;
+import com.stefanos.rcms.cases.dto.CaseStatusCountResponse;
 
 
 @Service
@@ -56,8 +62,9 @@ public class CaseRecordService {
 
     @Transactional(readOnly = true)
     public Page<CaseResponse> listAll(CaseStatus status, String externalReference, String assignedTo, Pageable pageable) {
-        Specification<CaseRecord> spec = Specification
-            .where(CaseSpecifications.hasStatus(status))
+        Specification<CaseRecord> spec = (root, query, cb) -> cb.conjunction();
+        spec = spec
+            .and(CaseSpecifications.hasStatus(status))
             .and(CaseSpecifications.hasExternalReference(externalReference))
             .and(CaseSpecifications.hasAssignedTo(assignedTo));
 
@@ -84,6 +91,20 @@ public class CaseRecordService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Case not found");
         }
         repository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<CaseStatusCountResponse> getStatusCounts() {
+        Map<CaseStatus, Long> counts = repository.countByStatus().stream()
+            .collect(Collectors.toMap(
+                CaseStatusCount::getStatus,
+                CaseStatusCount::getCount,
+                (left, right) -> left
+            ));
+
+        return Arrays.stream(CaseStatus.values())
+            .map(status -> new CaseStatusCountResponse(status, counts.getOrDefault(status, 0L)))
+            .toList();
     }
 
     private CaseResponse toResponse(CaseRecord record) {

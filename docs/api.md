@@ -75,6 +75,18 @@ Example:
 **GET** `/cases/{id}`  
 Fetch a case by id (ADMIN, CASE_WORKER, AUDITOR).
 
+**GET** `/cases/stats/status`  
+Aggregate counts by status (ADMIN, CASE_WORKER, AUDITOR).
+
+Response:
+```json
+[
+  { "status": "OPEN", "count": 12 },
+  { "status": "IN_PROGRESS", "count": 3 },
+  { "status": "CLOSED", "count": 7 }
+]
+```
+
 **PUT** `/cases/{id}`  
 Update a case (ADMIN, CASE_WORKER).
 

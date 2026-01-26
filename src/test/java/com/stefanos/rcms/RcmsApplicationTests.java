@@ -1,10 +1,9 @@
 package com.stefanos.rcms;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.stefanos.rcms.support.IntegrationTestBase;
 
-@SpringBootTest
-class RcmsApplicationTests {
+class RcmsApplicationTests extends IntegrationTestBase {
 
 	@Test
 	void contextLoads() {

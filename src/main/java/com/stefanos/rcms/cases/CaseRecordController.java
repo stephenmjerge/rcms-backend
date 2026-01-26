@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.stefanos.rcms.cases.dto.CaseCreateRequest;
 import com.stefanos.rcms.cases.dto.CaseResponse;
+import com.stefanos.rcms.cases.dto.CaseStatusCountResponse;
 import com.stefanos.rcms.cases.dto.CaseUpdateRequest;
 
 import jakarta.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/cases")
@@ -43,6 +45,11 @@ public class CaseRecordController {
     @GetMapping
     public Page<CaseResponse> listAll(CaseStatus status, String externalReference, String assignedTo, Pageable pageable) {
         return service.listAll(status, externalReference, assignedTo, pageable);
+    }
+
+    @GetMapping("/stats/status")
+    public List<CaseStatusCountResponse> statusCounts() {
+        return service.getStatusCounts();
     }
 
     @PutMapping("/{id}")

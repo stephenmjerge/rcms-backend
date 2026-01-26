@@ -15,12 +15,12 @@ RCMS uses stateless authentication with JWT bearer tokens.
 - `AUDITOR`: read-only access to cases
 
 ## Endpoint Rules
-- `POST /auth/login` → public
-- `GET /health` → public
-- `GET /cases/**` → ADMIN, CASE_WORKER, AUDITOR
-- `POST /cases` → ADMIN, CASE_WORKER
-- `PUT /cases/**` → ADMIN, CASE_WORKER
-- `DELETE /cases/**` → ADMIN, CASE_WORKER
+- `POST /auth/login` -> public
+- `GET /health` -> public
+- `GET /cases/**` -> ADMIN, CASE_WORKER, AUDITOR
+- `POST /cases` -> ADMIN, CASE_WORKER
+- `PUT /cases/**` -> ADMIN, CASE_WORKER
+- `DELETE /cases/**` -> ADMIN, CASE_WORKER
 
 ## Why JWT
 - Stateless: no server sessions required.
@@ -29,5 +29,5 @@ RCMS uses stateless authentication with JWT bearer tokens.
 
 ## Notes
 - Secrets must be 32+ characters and kept private.
-- Tokens are short‑lived (1 hour by default).
+- Tokens are short-lived (1 hour by default).
 - Rotate secrets in production and use environment variables.
